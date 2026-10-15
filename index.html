@@ -1,0 +1,987 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Diyorbek &amp; Mubinaxon — 22.10.2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Forum&amp;family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&amp;display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Great+Vibes&amp;display=block">
+<style>
+:root {
+  --night: #15120F;
+  --night-2: #221D19;
+  --ivory: #F3EDE1;
+  --ivory-2: #E8E0D0;
+  --ink: #241D18;
+  --ink-soft: #6F6257;
+  --bronze: #8A6A3D;
+  --gold: #B48F57;
+  --gold-light: #D9BD86;
+  --candle: #F1D39A;
+  --line: #D6C8AE;
+  --line-dark: rgba(217, 189, 134, .3);
+  --shadow: rgba(0, 0, 0, .55);
+
+  --font-caps: "Forum", "Cinzel", "Trajan Pro", Georgia, serif;
+  --font-body: "Cormorant Garamond", "Cormorant", Georgia, "Times New Roman", serif;
+  --font-script: "Great Vibes", "Snell Roundhand", "Apple Chancery", cursive;
+
+  --cw: min(100vw - 2rem, 30rem);
+  --arch: calc(var(--cw) / 2);
+  --gutter: clamp(1.25rem, 6vw, 2.5rem);
+  --ease-out: cubic-bezier(.2, .7, .2, 1);
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { background: var(--night); }
+html.sealed, html.sealed body { overflow: hidden; }
+
+body {
+  margin: 0;
+  padding-inline: 1rem;
+  background: var(--night);
+  color: var(--ivory);
+  font-family: var(--font-body);
+  font-size: 1.25rem;
+  font-weight: 400;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+.glow { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+
+.sprites { position: absolute; width: 0; height: 0; overflow: hidden; }
+.mono { display: block; fill: currentColor; }
+.sr { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+.odo {
+  display: inline-block;
+  height: 1em;
+  overflow: hidden;
+  vertical-align: text-bottom;
+  line-height: 1;
+}
+.odo__strip {
+  display: flex;
+  flex-direction: column;
+  transform: translateY(calc(var(--n, 0) * -1em));
+  transition: transform 1.3s var(--ease-out);
+}
+.odo__strip.no-anim { transition: none; }
+.odo__strip > span { display: block; height: 1em; line-height: 1; }
+.odo--fast .odo__strip { transition-duration: .55s; }
+
+.lang {
+  position: fixed;
+  top: calc(.75rem + env(safe-area-inset-top, 0px));
+  right: 1rem;
+  z-index: 30;
+  display: flex;
+  padding: .2rem;
+  border: 1px solid var(--line-dark);
+  border-radius: 999px;
+  background: rgba(21, 18, 15, .8);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+.lang__btn {
+  min-width: 2.6rem;
+  padding: .35rem .55rem;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  color: var(--gold-light);
+  font-family: var(--font-caps);
+  font-size: .8rem;
+  letter-spacing: .12em;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color .2s ease, color .2s ease;
+}
+.lang__btn[aria-pressed="true"] { background: var(--ivory); color: var(--night); }
+.lang__btn:focus-visible { outline: 2px solid var(--gold-light); outline-offset: 2px; }
+
+.cover {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  padding: max(1.25rem, env(safe-area-inset-top, 0px)) 1.25rem max(1.25rem, env(safe-area-inset-bottom, 0px));
+  overflow: hidden;
+  color: var(--ivory);
+  text-align: center;
+  transition: opacity .6s ease;
+}
+.cover.is-open { opacity: 0; pointer-events: none; }
+
+.cover__top {
+  margin: 0 0 1.5rem;
+  font-family: var(--font-caps);
+  font-size: .95rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+}
+.cover__mono { display: block; width: min(13rem, 46vw, 26vh); height: auto; color: var(--gold-light); overflow: visible; }
+.cover__ring { fill: none; stroke: currentColor; stroke-width: 1.6; stroke-dasharray: 566; stroke-dashoffset: 0; }
+.cover__letters { fill: currentColor; transform-origin: 112px 115px; }
+.cover__names {
+  margin: 1.4rem 0 0;
+  font-family: var(--font-script);
+  font-size: min(calc((100vw - 2.5rem) / 8.3), 3.2rem);
+  line-height: 1.15;
+  white-space: nowrap;
+}
+.cover__rule { display: block; width: 4rem; height: 1px; margin: 1.3rem auto 1.1rem; background: var(--gold); transform-origin: 50% 50%; }
+.cover__date {
+  margin: 0;
+  font-family: var(--font-caps);
+  font-size: clamp(2rem, 9.5vw, 3rem);
+  letter-spacing: .06em;
+  line-height: 1;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+.cover__date .odo-sep { display: inline-block; margin: 0 .22em; color: var(--gold); transform: translateY(-.12em); font-size: .55em; }
+.cover__time {
+  margin: 1rem 0 0;
+  font-family: var(--font-caps);
+  font-size: 1rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  font-variant-numeric: lining-nums;
+}
+.cover__open {
+  margin: 2.2rem 0 0;
+  padding: .8rem 1.6rem;
+  border: 1px solid var(--gold);
+  border-radius: 999px;
+  background: none;
+  color: var(--ivory);
+  font-family: var(--font-caps);
+  font-size: .95rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 0 0 0 rgba(217, 189, 134, .35);
+  transition: background-color .2s ease;
+}
+.cover__open:hover { background: rgba(243, 237, 225, .08); }
+.cover__open:focus-visible { outline: 2px solid var(--gold-light); outline-offset: 3px; }
+
+.cover.is-animated .cover__top { animation: fade-up .8s var(--ease-out) both; }
+.cover.is-animated .cover__ring { animation: draw 1.4s var(--ease-out) .2s both; }
+.cover.is-animated .cover__letters { animation: letters 1s var(--ease-out) 1s both; }
+.cover.is-animated .cover__names { animation: write-on 1.5s cubic-bezier(.4, 0, .3, 1) 1.5s both; }
+.cover.is-animated .cover__rule { animation: grow .7s var(--ease-out) 2.5s both; }
+.cover.is-animated .cover__date { animation: fade-up .8s var(--ease-out) 2.5s both; }
+.cover.is-animated .cover__time { animation: fade-up .8s var(--ease-out) 3.3s both; }
+.cover.is-animated .cover__open { animation: fade-up .8s var(--ease-out) 3.7s both, pulse 2.8s ease-in-out 4.6s infinite; }
+@keyframes fade-up { from { opacity: 0; transform: translateY(.8rem); } to { opacity: 1; transform: none; } }
+@keyframes draw { from { stroke-dashoffset: 566; } to { stroke-dashoffset: 0; } }
+@keyframes letters { from { opacity: 0; transform: scale(.88); } to { opacity: 1; transform: none; } }
+@keyframes write-on { from { clip-path: inset(-10% 100% -10% 0); opacity: .6; } to { clip-path: inset(-10% 0 -10% 0); opacity: 1; } }
+@keyframes grow { from { transform: scaleX(0); } to { transform: none; } }
+@keyframes pulse { 50% { box-shadow: 0 0 0 .6rem rgba(217, 189, 134, 0); } }
+
+@media (max-height: 36rem) {
+  .cover__top { margin-bottom: .8rem; }
+  .cover__mono { width: min(9rem, 20vh); }
+  .cover__names { margin-top: .8rem; }
+  .cover__rule { margin: .8rem auto .7rem; }
+  .cover__open { margin-top: 1.2rem; }
+}
+
+.page {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3.25rem;
+  width: 100%;
+  max-width: 30rem;
+  margin-inline: auto;
+  padding-block: 3.5rem 6rem;
+  text-align: center;
+}
+html.sealed .page { visibility: hidden; }
+.page > * { min-width: 0; }
+.page.is-in .hero { animation: rise .9s var(--ease-out) both; }
+.reveal.is-in { animation: rise .8s var(--ease-out) both; }
+@keyframes rise { from { opacity: 0; transform: translateY(1.5rem); } to { opacity: 1; transform: none; } }
+
+.card {
+  position: relative;
+  padding: 2.5rem var(--gutter) 2.75rem;
+  background: var(--ivory);
+  color: var(--ink);
+  box-shadow: 0 2rem 5rem var(--shadow);
+}
+.card::before {
+  content: "";
+  position: absolute;
+  inset: .6rem;
+  border: 1px solid rgba(180, 143, 87, .45);
+  pointer-events: none;
+}
+.card--arch { border-radius: var(--arch) var(--arch) .5rem .5rem; padding-top: 3.25rem; }
+.card--arch::before { border-radius: calc(var(--arch) - .6rem) calc(var(--arch) - .6rem) .3rem .3rem; }
+.card--arch-bottom { border-radius: .5rem .5rem var(--arch) var(--arch); padding-bottom: calc(var(--arch) * .66); }
+.card--arch-bottom::before { border-radius: .3rem .3rem calc(var(--arch) - .6rem) calc(var(--arch) - .6rem); }
+.card > * { position: relative; }
+
+.caps {
+  font-family: var(--font-caps);
+  font-weight: 400;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+h1, h2 { margin: 0; font-weight: 400; text-wrap: balance; }
+
+.hero .mono { width: min(9rem, 46%); margin: 0 auto 1.6rem; color: var(--bronze); }
+.hero__greet { margin: 0; font-size: 1.05rem; color: var(--bronze); }
+.hero__text {
+  max-width: 22rem;
+  margin: .9rem auto 0;
+  font-size: 1.3rem;
+  line-height: 1.45;
+  text-wrap: pretty;
+}
+.names {
+  margin: 1.4rem 0 0;
+  font-family: var(--font-script);
+  font-size: min(calc((var(--cw) - 2 * var(--gutter)) / 8.3), 3.4rem);
+  line-height: 1.15;
+  color: var(--bronze);
+  white-space: nowrap;
+}
+.names:focus { outline: none; }
+.amp { margin-inline-end: .1em; }
+.hero__when {
+  margin: .9rem 0 0;
+  font-family: var(--font-caps);
+  font-size: 1.1rem;
+  letter-spacing: .1em;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+.hero__when span { display: block; }
+.hero__when .hero__time { margin-top: .15rem; color: var(--ink-soft); }
+.hero__when .odo { display: inline-block; }
+.flourish { display: block; width: 11rem; max-width: 80%; height: 1.5rem; margin: 1.3rem auto; color: var(--gold); }
+.flourish svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.hero__venue { margin: 0; }
+.hero__venue .venue__name {
+  display: block;
+  font-family: var(--font-script);
+  font-size: min(calc((var(--cw) - 2 * var(--gutter)) / 7.2), 3rem);
+  line-height: 1.2;
+  color: var(--bronze);
+  white-space: nowrap;
+}
+.hero__venue .venue__hall { display: block; margin-top: .2rem; font-size: 1rem; letter-spacing: .14em; }
+
+.dark { padding-inline: var(--gutter); }
+.dark h2 { font-family: var(--font-caps); font-size: 1.35rem; letter-spacing: .16em; text-transform: uppercase; color: var(--gold-light); }
+.dark h2::after {
+  content: "";
+  display: block;
+  width: 3rem;
+  height: 1px;
+  margin: .9rem auto 0;
+  background: var(--gold);
+}
+.quote { position: relative; max-width: 24rem; margin-inline: auto; padding-block: .5rem; }
+.quote__mark { display: block; width: 1.6rem; height: 1.2rem; margin: 0 auto .6rem; color: var(--gold); }
+.quote__mark svg { display: block; width: 100%; height: 100%; }
+.quote__mark--end { margin: .6rem auto 0; transform: rotate(180deg); }
+.quote p { margin: 0; font-size: 1.35rem; font-style: italic; line-height: 1.5; text-wrap: pretty; }
+
+.when__month { font-family: var(--font-caps); font-size: 1.3rem; letter-spacing: .12em; text-transform: uppercase; color: var(--bronze); }
+.when__lead { margin: 0 0 1rem; font-size: 1rem; color: var(--ink-soft); }
+.cal {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  max-width: 20rem;
+  margin: 1.2rem auto 0;
+  font-family: var(--font-caps);
+  font-variant-numeric: lining-nums tabular-nums;
+}
+.cal > span { position: relative; display: grid; place-items: center; aspect-ratio: 1; font-size: 1.05rem; line-height: 1; }
+.cal > .cal__wd { aspect-ratio: auto; padding-bottom: .6rem; font-size: .8rem; letter-spacing: .08em; color: var(--ink-soft); }
+.cal > .cal__the { color: var(--bronze); font-size: 1.2rem; transition: color .6s ease 1s; }
+.cal__ring {
+  position: absolute;
+  inset: -16%;
+  width: 132%;
+  height: 132%;
+  overflow: visible;
+  color: var(--gold);
+  pointer-events: none;
+}
+.cal__ring path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-dasharray: 190;
+  stroke-dashoffset: 0;
+}
+.cal.is-in .cal__ring path { animation: ring 1.3s cubic-bezier(.4, 0, .3, 1) .3s both; }
+@keyframes ring { from { stroke-dashoffset: 190; } to { stroke-dashoffset: 0; } }
+.when__start { margin: 1.1rem 0 0; font-family: var(--font-caps); font-size: 1.05rem; letter-spacing: .1em; font-variant-numeric: lining-nums; }
+.textlink {
+  display: inline-block;
+  margin-top: .45rem;
+  color: var(--bronze);
+  font-size: 1.15rem;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: .22em;
+}
+.textlink:hover { color: var(--ink); }
+.textlink:focus-visible { outline: 2px solid var(--bronze); outline-offset: 3px; }
+
+.where__name { font-family: var(--font-caps); font-size: 1.35rem; letter-spacing: .1em; text-transform: none; }
+.where__name small { display: block; margin-bottom: .35rem; font-size: .9rem; letter-spacing: .16em; text-transform: uppercase; color: var(--bronze); }
+.where__hall { margin: .35rem 0 0; font-family: var(--font-caps); font-size: 1rem; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-soft); }
+.where__addr { margin: .9rem 0 0; font-style: normal; font-size: 1.2rem; line-height: 1.4; font-variant-numeric: lining-nums; }
+.where__go { margin: 1.3rem 0 0; font-size: .85rem; color: var(--ink-soft); }
+.maps {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .75rem;
+  max-width: 17rem;
+  margin: .7rem auto 0;
+}
+@media (max-width: 21rem) { .maps { grid-template-columns: minmax(0, 1fr); } }
+.btn {
+  display: block;
+  padding: .85rem .6rem;
+  background: var(--night);
+  color: var(--ivory);
+  font-family: var(--font-caps);
+  font-size: .95rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background-color .2s ease, color .2s ease;
+}
+.btn:hover { background: var(--bronze); }
+.btn:focus-visible { outline: 2px solid var(--bronze); outline-offset: 3px; }
+
+.count { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); max-width: 22rem; margin: 1.5rem auto 0; }
+.count__cell { display: flex; flex-direction: column; align-items: center; gap: .35rem; padding-inline: .15rem; }
+.count__cell + .count__cell { border-left: 1px solid var(--line-dark); }
+.count__n { font-family: var(--font-caps); font-size: clamp(2rem, 9.5vw, 2.75rem); line-height: 1; color: var(--ivory); font-variant-numeric: lining-nums tabular-nums; white-space: nowrap; }
+.count__u { font-size: clamp(.9rem, 3.8vw, 1.05rem); line-height: 1.2; color: var(--gold-light); }
+.close__wait { margin: 2.5rem 0 0; font-size: 1.45rem; font-style: italic; color: var(--ivory); }
+.close__names {
+  margin: .4rem 0 0;
+  font-family: var(--font-script);
+  font-size: min(calc((var(--cw) - 2 * var(--gutter)) / 8.3), 3.2rem);
+  line-height: 1.15;
+  color: var(--gold-light);
+  white-space: nowrap;
+}
+.close .mono { width: 5.5rem; margin: 2.5rem auto 0; color: var(--gold); opacity: .9; }
+
+.music {
+  position: fixed;
+  right: 1rem;
+  bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  max-width: calc(100vw - 2rem);
+  padding: .35rem .95rem .35rem .4rem;
+  border: 1px solid var(--line-dark);
+  border-radius: 999px;
+  background: rgba(21, 18, 15, .86);
+  color: var(--ivory);
+  font-family: var(--font-caps);
+  font-size: .8rem;
+  letter-spacing: .08em;
+  line-height: 1.2;
+  text-align: left;
+  cursor: pointer;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 .5rem 1.5rem rgba(0, 0, 0, .5);
+}
+.music:focus-visible { outline: 2px solid var(--gold-light); outline-offset: 2px; }
+.music__disc { flex: none; width: 2.2rem; height: 2.2rem; }
+.music__disc svg { display: block; width: 100%; height: 100%; }
+.music[aria-pressed="true"] .music__disc svg { animation: spin 4s linear infinite; }
+@keyframes spin { to { transform: rotate(1turn); } }
+.music__text { display: flex; flex-direction: column; gap: .1rem; min-width: 0; }
+.music__title { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.music__state { font-family: var(--font-body); font-size: .95rem; letter-spacing: 0; color: var(--gold-light); }
+
+@media (prefers-reduced-motion: reduce) {
+  .cover.is-animated .cover__top, .cover.is-animated .cover__ring, .cover.is-animated .cover__letters, .cover.is-animated .cover__names,
+  .cover.is-animated .cover__rule, .cover.is-animated .cover__date, .cover.is-animated .cover__time, .cover.is-animated .cover__open,
+  .page.is-in .hero, .reveal.is-in, .cal.is-in .cal__ring path, .music[aria-pressed="true"] .music__disc svg { animation: none; }
+  .cover, .odo__strip { transition: none; }
+}
+</style>
+<meta name="description" content="Nikoh toʻyiga taklifnoma — 2026-yil 22-oktabr, soat 18:00. Yakkasaroy Palace, Baccarat banket zali.">
+<meta name="theme-color" content="#15120F">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://diyorbek-mubinaxon.vercel.app/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Diyorbek &amp; Mubinaxon">
+<meta property="og:title" content="Diyorbek &amp; Mubinaxon — 22.10.2026">
+<meta property="og:description" content="Nikoh toʻyiga taklifnoma — 2026-yil 22-oktabr, soat 18:00. Yakkasaroy Palace, Baccarat banket zali.">
+<meta property="og:url" content="https://diyorbek-mubinaxon.vercel.app/">
+<meta property="og:image" content="https://diyorbek-mubinaxon.vercel.app/og.jpg">
+<meta property="og:image:width" content="1000">
+<meta property="og:image:height" content="525">
+<meta property="og:image:alt" content="Diyorbek &amp; Mubinaxon, 22.10.2026">
+<meta property="og:locale" content="uz_UZ">
+<meta property="og:locale:alternate" content="ru_RU">
+<meta name="twitter:card" content="summary_large_image">
+<style>:root{padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+
+<svg class="sprites" aria-hidden="true" focusable="false">
+  <symbol id="dm" viewBox="14 18 240 204">
+    <path transform="translate(22.0 182)" d="M71.3 1.0Q64.6 1.0 54.7 0.2Q44.9 -0.5 36.5 -0.5Q28.8 -0.5 21.6 -0.2Q14.4 0.0 8.6 0.0Q8.2 0.0 8.2 -1.4Q8.2 -2.9 8.6 -2.9Q17.8 -2.9 22.4 -4.1Q27.1 -5.3 28.7 -8.9Q30.2 -12.5 30.2 -19.4V-130.6Q30.2 -137.5 28.7 -141.0Q27.1 -144.5 22.6 -145.8Q18.0 -147.1 8.9 -147.1Q8.4 -147.1 8.4 -148.6Q8.4 -150.0 8.9 -150.0Q14.6 -150.0 21.7 -149.6Q28.8 -149.3 36.5 -149.3Q44.2 -149.3 52.9 -149.9Q61.7 -150.5 67.9 -150.5Q93.6 -150.5 112.8 -140.9Q132.0 -131.3 142.7 -114.7Q153.4 -98.2 153.4 -77.5Q153.4 -59.5 146.9 -45.0Q140.4 -30.5 129.0 -20.3Q117.6 -10.1 102.7 -4.6Q87.8 1.0 71.3 1.0ZM68.9 -2.2Q89.0 -2.2 104.5 -10.2Q120.0 -18.2 128.9 -34.0Q137.8 -49.7 137.8 -72.2Q137.8 -93.4 129.5 -110.3Q121.2 -127.2 106.1 -137.3Q91.0 -147.4 70.1 -147.4Q55.4 -147.4 49.2 -144.4Q43.0 -141.4 43.0 -130.1V-22.1Q43.0 -11.8 47.9 -7.0Q52.8 -2.2 68.9 -2.2Z"/>
+    <path transform="translate(112.0 212) scale(.75)" d="M28.8 -25.0 31.2 -144.5 36.5 -144.0 34.3 -25.0Q34.1 -12.7 38.3 -7.8Q42.5 -2.9 54.5 -2.9Q55.0 -2.9 55.0 -1.4Q55.0 0.0 54.5 0.0Q49.2 0.0 43.6 -0.2Q37.9 -0.5 31.2 -0.5Q25.4 -0.5 20.2 -0.2Q14.9 0.0 10.1 0.0Q9.6 0.0 9.6 -1.4Q9.6 -2.9 10.1 -2.9Q20.2 -2.9 24.4 -7.8Q28.6 -12.7 28.8 -25.0ZM193.7 -2.9Q194.4 -2.9 194.4 -1.4Q194.4 0.0 193.7 0.0Q187.9 0.0 180.8 -0.2Q173.8 -0.5 165.8 -0.5Q158.4 -0.5 152.2 -0.2Q145.9 0.0 140.9 0.0Q140.4 0.0 140.4 -1.4Q140.4 -2.9 140.9 -2.9Q152.9 -2.9 156.4 -6.0Q159.8 -9.1 159.4 -19.4L155.0 -137.8L162.0 -146.6L99.1 -1.7Q98.9 -0.7 97.2 -0.7Q95.5 -0.7 95.0 -1.7L36.5 -130.1Q28.8 -147.1 11.8 -147.1Q11.3 -147.1 11.3 -148.6Q11.3 -150.0 11.8 -150.0Q15.4 -150.0 19.4 -149.8Q23.5 -149.5 26.2 -149.5Q29.5 -149.5 32.4 -149.8Q35.3 -150.0 36.7 -150.0Q40.1 -150.0 42.0 -147.8Q43.9 -145.7 47.8 -137.5L102.7 -18.7L96.5 -8.6L155.5 -144.0Q156.7 -146.6 158.8 -148.3Q160.8 -150.0 162.7 -150.0Q163.9 -150.0 166.3 -149.8Q168.7 -149.5 171.8 -149.5Q178.1 -149.5 181.9 -149.8Q185.8 -150.0 190.1 -150.0Q190.6 -150.0 190.6 -148.6Q190.6 -147.1 190.1 -147.1Q178.3 -147.1 172.8 -144.1Q167.3 -141.1 167.5 -131.0L172.1 -19.4Q172.3 -12.5 173.9 -8.9Q175.4 -5.3 180.0 -4.1Q184.6 -2.9 193.7 -2.9Z"/>
+  </symbol>
+  <symbol id="monogram" viewBox="14 18 240 204">
+    <circle cx="112" cy="115" r="90" fill="none" stroke="currentColor" stroke-width="1.8"/>
+    <use href="#dm" x="14" y="18" width="240" height="204"/>
+  </symbol>
+  <symbol id="flourish" viewBox="0 0 220 30">
+    <path d="M0 15 H84 M136 15 H220" fill="none" stroke="currentColor" stroke-width="1"/>
+    <path d="M92 15 C98 6 106 6 110 13 C114 6 122 6 128 15 C122 24 114 24 110 17 C106 24 98 24 92 15 Z" fill="none" stroke="currentColor" stroke-width="1.1"/>
+    <circle cx="110" cy="15" r="1.8" fill="currentColor"/>
+  </symbol>
+  <symbol id="quotemark" viewBox="0 0 40 30">
+    <path d="M4 28 C4 14 10 5 19 2 L21 6 C15 9 12 13 12 18 C16 18 19 21 19 25 C19 28 16 30 12 30 C7 30 4 28 4 28 Z M24 28 C24 14 30 5 39 2 L41 6 C35 9 32 13 32 18 C36 18 39 21 39 25 C39 28 36 30 32 30 C27 30 24 28 24 28 Z" fill="currentColor"/>
+  </symbol>
+  <symbol id="disc" viewBox="0 0 40 40">
+    <circle cx="20" cy="20" r="19" fill="#0B0A09" stroke="#D9BD86" stroke-width="1"/>
+    <circle cx="20" cy="20" r="14" fill="none" stroke="#3A332B" stroke-width="1"/>
+    <circle cx="20" cy="20" r="10.5" fill="none" stroke="#3A332B" stroke-width="1"/>
+    <circle cx="20" cy="20" r="6" fill="#B48F57"/>
+    <circle cx="20" cy="20" r="1.6" fill="#0B0A09"/>
+  </symbol>
+</svg>
+
+<canvas class="glow" id="glow" aria-hidden="true"></canvas>
+
+<div class="lang" id="lang" role="group" aria-label="Til / Язык">
+  <button class="lang__btn" type="button" data-lang="uz" aria-pressed="true" lang="uz">UZ</button>
+  <button class="lang__btn" type="button" data-lang="ru" aria-pressed="false" lang="ru">RU</button>
+</div>
+
+<div class="cover" id="cover" hidden>
+  <p class="cover__top" data-i18n="coverTop">Nikoh toʻyiga taklifnoma</p>
+  <svg class="cover__mono" viewBox="14 18 240 204" aria-hidden="true">
+    <circle class="cover__ring" cx="112" cy="115" r="90"/>
+    <g class="cover__letters"><use href="#dm" x="14" y="18" width="240" height="204"/></g>
+  </svg>
+  <p class="cover__names" lang="uz">Diyorbek <span class="amp">&amp;</span> Mubinaxon</p>
+  <span class="cover__rule" aria-hidden="true"></span>
+  <p class="cover__date" id="cover-date" aria-label="22.10.2026">22<span class="odo-sep">◆</span>10<span class="odo-sep">◆</span>2026</p>
+  <p class="cover__time" data-i18n="coverTime">Payshanba, soat 18:00</p>
+  <button class="cover__open" id="open" type="button" data-i18n="coverHint">Taklifnomani ochish</button>
+</div>
+<script>
+  (function () {
+    var cover = document.getElementById('cover');
+    if (!cover) return;
+    cover.hidden = false;
+    document.documentElement.classList.add('sealed');
+  })();
+</script>
+
+<main class="page" id="invite">
+  <article class="card card--arch hero">
+    <svg class="mono" viewBox="14 18 240 204" aria-hidden="true"><use href="#monogram"/></svg>
+    <p class="hero__greet caps" data-i18n="greet">Hurmatli mehmonimiz!</p>
+    <p class="hero__text" data-i18n="invite">Sizni hayotimizdagi unutilmas kun&nbsp;— tantanali nikoh oqshomimizning eng aziz mehmoni boʻlishga taklif etamiz!</p>
+    <h1 class="names" id="names" tabindex="-1" lang="uz">Diyorbek <span class="amp">&amp;</span> Mubinaxon</h1>
+    <p class="hero__when">
+      <time datetime="2026-10-22T18:00:00+05:00"><span class="hero__date" data-i18n="dateLong" data-odo>2026-yil 22-oktabr</span><span class="hero__time" data-i18n="dateTime">payshanba, soat 18:00</span></time>
+    </p>
+    <span class="flourish" aria-hidden="true"><svg viewBox="0 0 220 30"><use href="#flourish"/></svg></span>
+    <p class="hero__venue">
+      <span class="venue__name" lang="en">Yakkasaroy Palace</span>
+      <span class="venue__hall caps" data-i18n="hall">Baccarat banket zali</span>
+    </p>
+  </article>
+
+  <section class="dark quote reveal">
+    <span class="quote__mark" aria-hidden="true"><svg viewBox="0 0 40 30"><use href="#quotemark"/></svg></span>
+    <p data-i18n="quote">Bu kunni biz umr boʻyi kutdik&nbsp;— va uni siz bilan birga oʻtkazishni istaymiz. Tashrifingiz biz uchun eng qimmatli sovgʻa boʻladi.</p>
+    <span class="quote__mark quote__mark--end" aria-hidden="true"><svg viewBox="0 0 40 30"><use href="#quotemark"/></svg></span>
+  </section>
+
+  <article class="card card--arch-bottom when reveal">
+    <p class="when__lead caps" data-i18n="saveDate">Sanani eslab qoling</p>
+    <h2 class="when__month" data-i18n="month">Oktabr 2026</h2>
+    <div class="cal" id="cal" role="img" data-i18n-aria="calAria" aria-label="2026-yil oktabr oyi taqvimi. 22-oktabr, payshanba belgilangan.">
+      <span class="cal__wd">Du</span><span class="cal__wd">Se</span><span class="cal__wd">Ch</span><span class="cal__wd">Pa</span><span class="cal__wd">Ju</span><span class="cal__wd">Sh</span><span class="cal__wd">Ya</span>
+      <span></span><span></span><span></span><span>1</span><span>2</span><span>3</span><span>4</span>
+      <span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span>
+      <span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span>
+      <span>19</span><span>20</span><span>21</span><span class="cal__the">22<svg class="cal__ring" viewBox="0 0 60 60" aria-hidden="true"><path d="M14 36 C8 22 20 8 36 8 C52 8 58 22 52 38 C46 54 24 56 15 46 C9 39 12 28 20 22"/></svg></span><span>23</span><span>24</span><span>25</span>
+      <span>26</span><span>27</span><span>28</span><span>29</span><span>30</span><span>31</span>
+    </div>
+    <p class="when__start" data-i18n="start">Payshanba, soat 18:00</p>
+    <a class="textlink" id="gcal" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Diyorbek%20%26%20Mubinaxon%20to%CA%BByi&amp;dates=20261022T180000%2F20261022T220000&amp;ctz=Asia%2FTashkent&amp;location=Yakkasaroy%20Palace%2C%20Baccarat%20banket%20zali%2C%20Abdulla%20Qahhor%20ko%CA%BBchasi%2040%2C%20Toshkent" data-href-uz="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Diyorbek%20%26%20Mubinaxon%20to%CA%BByi&amp;dates=20261022T180000%2F20261022T220000&amp;ctz=Asia%2FTashkent&amp;location=Yakkasaroy%20Palace%2C%20Baccarat%20banket%20zali%2C%20Abdulla%20Qahhor%20ko%CA%BBchasi%2040%2C%20Toshkent" data-href-ru="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=%D0%A1%D0%B2%D0%B0%D0%B4%D1%8C%D0%B1%D0%B0%20Diyorbek%20%26%20Mubinaxon&amp;dates=20261022T180000%2F20261022T220000&amp;ctz=Asia%2FTashkent&amp;location=Yakkasaroy%20Palace%2C%20%D0%B1%D0%B0%D0%BD%D0%BA%D0%B5%D1%82%D0%BD%D1%8B%D0%B9%20%D0%B7%D0%B0%D0%BB%20Baccarat%2C%20%D1%83%D0%BB.%20%D0%90%D0%B1%D0%B4%D1%83%D0%BB%D0%BB%D1%8B%20%D0%9A%D0%B0%D1%85%D1%85%D0%B0%D1%80%D0%B0%2C%2040%2C%20%D0%A2%D0%B0%D1%88%D0%BA%D0%B5%D0%BD%D1%82" target="_blank" rel="noopener" data-i18n="gcal">Google Taqvimga qoʻshish</a>
+    <span class="flourish" aria-hidden="true"><svg viewBox="0 0 220 30"><use href="#flourish"/></svg></span>
+    <h2 class="where__name"><small data-i18n="venueLabel">Toʻy manzili</small>Yakkasaroy Palace</h2>
+    <p class="where__hall" data-i18n="hallLong">Restoran, Baccarat banket zali</p>
+    <address class="where__addr" data-i18n="address">Toshkent, Yakkasaroy tumani,<br>Abdulla Qahhor koʻchasi, 40</address>
+    <p class="where__go caps" data-i18n="openMap">Xaritada ochish</p>
+    <div class="maps">
+      <a class="btn" href="https://yandex.uz/maps/?pt=69.2601146,41.2797617&amp;z=17&amp;l=map" target="_blank" rel="noopener" data-i18n-aria="yandexAria" aria-label="Yandex Xaritalarda ochish">Yandex</a>
+      <a class="btn" href="https://www.google.com/maps/search/?api=1&amp;query=41.2797617%2C69.2601146&amp;query_place_id=ChIJH5eZ9EmLrjgR-X3jC3uzOYg" target="_blank" rel="noopener" data-i18n-aria="gmapsAria" aria-label="Google Xaritalarda ochish">Google</a>
+    </div>
+  </article>
+
+  <section class="dark close reveal">
+    <h2 id="count-title" data-i18n="countTitle">Toʻygacha</h2>
+    <p class="sr" id="count-sr" aria-live="off"></p>
+    <div class="count" id="count" aria-hidden="true">
+      <div class="count__cell"><span class="count__n" id="cd-d">00</span><span class="count__u" id="cu-d">kun</span></div>
+      <div class="count__cell"><span class="count__n" id="cd-h">00</span><span class="count__u" id="cu-h">soat</span></div>
+      <div class="count__cell"><span class="count__n" id="cd-m">00</span><span class="count__u" id="cu-m">daqiqa</span></div>
+      <div class="count__cell"><span class="count__n" id="cd-s">00</span><span class="count__u" id="cu-s">soniya</span></div>
+    </div>
+    <p class="close__wait" data-i18n="wait">Sizni kutamiz!</p>
+    <p class="close__names" lang="uz">Diyorbek <span class="amp">&amp;</span> Mubinaxon</p>
+    <svg class="mono" viewBox="14 18 240 204" aria-hidden="true"><use href="#monogram"/></svg>
+  </section>
+</main>
+
+<button class="music" id="music-btn" type="button" aria-pressed="false" hidden>
+  <span class="music__disc" aria-hidden="true"><svg viewBox="0 0 40 40"><use href="#disc"/></svg></span>
+  <span class="music__text">
+    <span class="music__title" lang="en">Merry-Go-Round of Life</span>
+    <span class="music__state" id="music-state">Pauza</span>
+  </span>
+</button>
+<audio id="music" src="music.mp3" preload="auto" loop playsinline></audio>
+
+<script>
+  (function () {
+    var root = document.documentElement;
+    var cover = document.getElementById('cover');
+    var openBtn = document.getElementById('open');
+    var invite = document.getElementById('invite');
+    var names = document.getElementById('names');
+    var calm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var opened = false;
+
+        function makeOdo(digit, cycles) {
+      var odo = document.createElement('span');
+      odo.className = 'odo';
+      var strip = document.createElement('span');
+      strip.className = 'odo__strip';
+      for (var c = 0; c < cycles; c++) {
+        for (var i = 0; i < 10; i++) { var s = document.createElement('span'); s.textContent = i; strip.appendChild(s); }
+      }
+      strip.style.setProperty('--n', '0');
+      odo.appendChild(strip);
+      odo._strip = strip;
+      odo._target = (cycles - 1) * 10 + digit;
+      return odo;
+    }
+        function odoify(el, roll, cycles) {
+      var text = el._text != null ? el._text : el.textContent;
+      el._text = text;
+      el.textContent = '';
+      var odos = [];
+      for (var i = 0; i < text.length; i++) {
+        var ch = text[i];
+        if (ch >= '0' && ch <= '9') { var o = makeOdo(+ch, cycles || 1); el.appendChild(o); odos.push(o); }
+        else el.appendChild(document.createTextNode(ch));
+      }
+      settle(odos, roll, 90);
+      return odos;
+    }
+    function settle(odos, roll, stagger) {
+      if (!roll || calm) {
+        odos.forEach(function (o) { o._strip.classList.add('no-anim'); o._strip.style.setProperty('--n', o._target); });
+        window.requestAnimationFrame(function () { odos.forEach(function (o) { o._strip.classList.remove('no-anim'); }); });
+        return;
+      }
+      window.requestAnimationFrame(function () {
+        window.requestAnimationFrame(function () {
+          odos.forEach(function (o, i) {
+            o._strip.style.transitionDelay = (i * stagger) + 'ms';
+            o._strip.style.setProperty('--n', o._target);
+          });
+        });
+      });
+    }
+
+        var I18N = {
+      uz: {
+        coverTop: 'Nikoh toʻyiga taklifnoma',
+        coverTime: 'Payshanba, soat 18:00',
+        coverHint: 'Taklifnomani ochish',
+        greet: 'Hurmatli mehmonimiz!',
+        invite: 'Sizni hayotimizdagi unutilmas kun — tantanali nikoh oqshomimizning eng aziz mehmoni boʻlishga taklif etamiz!',
+        dateLong: '2026-yil 22-oktabr',
+        dateTime: 'payshanba, soat 18:00',
+        hall: 'Baccarat banket zali',
+        quote: 'Bu kunni biz umr boʻyi kutdik — va uni siz bilan birga oʻtkazishni istaymiz. Tashrifingiz biz uchun eng qimmatli sovgʻa boʻladi.',
+        saveDate: 'Sanani eslab qoling',
+        month: 'Oktabr 2026',
+        calAria: '2026-yil oktabr oyi taqvimi. 22-oktabr, payshanba belgilangan.',
+        wd: ['Du', 'Se', 'Ch', 'Pa', 'Ju', 'Sh', 'Ya'],
+        start: 'Payshanba, soat 18:00',
+        gcal: 'Google Taqvimga qoʻshish',
+        venueLabel: 'Toʻy manzili',
+        hallLong: 'Restoran, Baccarat banket zali',
+        address: 'Toshkent, Yakkasaroy tumani,\nAbdulla Qahhor koʻchasi, 40',
+        openMap: 'Xaritada ochish',
+        yandexAria: 'Yandex Xaritalarda ochish',
+        gmapsAria: 'Google Xaritalarda ochish',
+        countTitle: 'Toʻygacha',
+        countDone: 'Bu kun keldi',
+        units: { d: ['kun', 'kun', 'kun'], h: ['soat', 'soat', 'soat'], m: ['daqiqa', 'daqiqa', 'daqiqa'], s: ['soniya', 'soniya', 'soniya'] },
+        wait: 'Sizni kutamiz!',
+        playing: 'Ijro etilmoqda',
+        paused: 'Pauza',
+        musicOn: 'Musiqani yoqish: Merry-Go-Round of Life',
+        musicOff: 'Musiqani toʻxtatish: Merry-Go-Round of Life'
+      },
+      ru: {
+        coverTop: 'Приглашение на свадьбу',
+        coverTime: 'Четверг, в 18:00',
+        coverHint: 'Открыть приглашение',
+        greet: 'Дорогие гости!',
+        invite: 'Приглашаем вас стать самыми дорогими гостями незабываемого дня нашей жизни — торжественного вечера нашей свадьбы!',
+        dateLong: '22 октября 2026 года',
+        dateTime: 'четверг, в 18:00',
+        hall: 'Банкетный зал Baccarat',
+        quote: 'Этот день мы ждали всю жизнь — и хотим прожить его рядом с вами. Ваше присутствие станет для нас самым дорогим подарком.',
+        saveDate: 'Запомните дату',
+        month: 'Октябрь 2026',
+        calAria: 'Календарь на октябрь 2026 года. Отмечен четверг, 22 октября.',
+        wd: ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'],
+        start: 'Четверг, в 18:00',
+        gcal: 'Добавить в Google Календарь',
+        venueLabel: 'Место торжества',
+        hallLong: 'Ресторан, банкетный зал Baccarat',
+        address: 'Ташкент, Яккасарайский район,\nул. Абдуллы Каххара, 40',
+        openMap: 'Открыть на карте',
+        yandexAria: 'Открыть в Яндекс Картах',
+        gmapsAria: 'Открыть в Google Картах',
+        countTitle: 'До свадьбы',
+        countDone: 'Этот день настал',
+        units: { d: ['день', 'дня', 'дней'], h: ['час', 'часа', 'часов'], m: ['минута', 'минуты', 'минут'], s: ['секунда', 'секунды', 'секунд'] },
+        wait: 'Ждём вас!',
+        playing: 'Играет',
+        paused: 'Пауза',
+        musicOn: 'Включить музыку: Merry-Go-Round of Life',
+        musicOff: 'Остановить музыку: Merry-Go-Round of Life'
+      }
+    };
+    var lang = 'uz';
+    var langBtns = document.querySelectorAll('.lang__btn');
+    var gcal = document.getElementById('gcal');
+    var musicState = document.getElementById('music-state');
+
+    function setLang(l, persist) {
+      if (!I18N[l]) return;
+      lang = l;
+      var t = I18N[l];
+      root.lang = l;
+      if (invite) invite.lang = l;
+      if (cover) cover.lang = l;
+      document.querySelectorAll('[data-i18n]').forEach(function (el) {
+        var key = el.getAttribute('data-i18n');
+        if (!(key in t)) return;
+        var parts = String(t[key]).split('\n');
+        el._text = null;
+        el.textContent = '';
+        parts.forEach(function (p, i) {
+          if (i) el.appendChild(document.createElement('br'));
+          el.appendChild(document.createTextNode(p));
+        });
+        if (el.hasAttribute('data-odo')) odoify(el, !root.classList.contains('sealed'), 1);
+      });
+      document.querySelectorAll('[data-i18n-aria]').forEach(function (el) {
+        var key = el.getAttribute('data-i18n-aria');
+        if (key in t) el.setAttribute('aria-label', t[key]);
+      });
+      document.querySelectorAll('.cal__wd').forEach(function (el, i) { el.textContent = t.wd[i]; });
+      if (gcal) gcal.href = gcal.getAttribute('data-href-' + l) || gcal.href;
+      langBtns.forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-lang') === l ? 'true' : 'false'); });
+      if (typeof tick === 'function') tick();
+      setMusicUI(!(audio && audio.paused));
+      if (persist) { try { localStorage.setItem('lang', l); } catch (e) {} }
+    }
+    langBtns.forEach(function (b) {
+      b.addEventListener('click', function () { setLang(b.getAttribute('data-lang'), true); });
+    });
+
+        var audio = document.getElementById('music');
+    var musicBtn = document.getElementById('music-btn');
+    var trackOk = false;
+
+    function setMusicUI(playing) {
+      if (!musicBtn) return;
+      var t = I18N[lang];
+      musicBtn.setAttribute('aria-pressed', playing ? 'true' : 'false');
+      if (musicState) musicState.textContent = playing ? t.playing : t.paused;
+      musicBtn.setAttribute('aria-label', playing ? t.musicOff : t.musicOn);
+    }
+    function showMusicBtn() {
+      if (trackOk && musicBtn && !root.classList.contains('sealed')) musicBtn.hidden = false;
+    }
+    function fadeIn() {
+      try {
+        audio.volume = 0;
+        var v = 0;
+        var t = window.setInterval(function () {
+          v = Math.min(1, v + .05);
+          audio.volume = v;
+          if (v >= 1) window.clearInterval(t);
+        }, 90);
+      } catch (e) {}
+    }
+    function startMusic() {
+      if (!audio) return;
+      var p = audio.play();
+      if (p && p.then) {
+        p.then(function () { trackOk = true; showMusicBtn(); setMusicUI(true); fadeIn(); })
+         .catch(function () { setMusicUI(false); });
+      } else {
+        setMusicUI(true);
+      }
+    }
+    if (audio && musicBtn) {
+      audio.addEventListener('loadedmetadata', function () { trackOk = true; showMusicBtn(); });
+      audio.addEventListener('error', function () { trackOk = false; musicBtn.hidden = true; });
+      audio.addEventListener('pause', function () { setMusicUI(false); });
+      audio.addEventListener('play', function () { setMusicUI(true); });
+      musicBtn.addEventListener('click', function () {
+        if (audio.paused) { var p = audio.play(); if (p && p.catch) p.catch(function () {}); }
+        else { audio.pause(); }
+      });
+    }
+
+        var coverDate = document.getElementById('cover-date');
+    var coverOdos = [];
+    if (coverDate) {
+            var frag = document.createDocumentFragment();
+      Array.prototype.slice.call(coverDate.childNodes).forEach(function (node) {
+        if (node.nodeType === 3) {
+          var txt = node.textContent;
+          for (var i = 0; i < txt.length; i++) {
+            if (txt[i] >= '0' && txt[i] <= '9') { var o = makeOdo(+txt[i], 2); frag.appendChild(o); coverOdos.push(o); }
+            else frag.appendChild(document.createTextNode(txt[i]));
+          }
+        } else frag.appendChild(node);
+      });
+      coverDate.textContent = '';
+      coverDate.appendChild(frag);
+    }
+    function finish() {
+      if (cover) cover.hidden = true;
+      if (invite) invite.inert = false;
+      if (names) { try { names.focus({ preventScroll: true }); } catch (e) {} }
+    }
+    function reveal() {
+      root.classList.remove('sealed');
+      if (invite) invite.classList.add('is-in');
+      document.querySelectorAll('[data-odo]').forEach(function (el) { odoify(el, true, 1); });
+      showMusicBtn();
+      watchReveals();
+    }
+    function openInvite() {
+      if (opened) return;
+      opened = true;
+      startMusic();
+      if (calm) { reveal(); finish(); return; }
+      cover.classList.add('is-open');
+      window.setTimeout(reveal, 150);
+      window.setTimeout(finish, 700);
+    }
+    if (cover && openBtn && !cover.hidden) {
+      if (invite) invite.inert = true;
+      openBtn.addEventListener('click', openInvite);
+      if (!calm) {
+        cover.classList.add('is-animated');
+        window.setTimeout(function () { settle(coverOdos, true, 110); }, 2500);
+      } else {
+        settle(coverOdos, false, 0);
+      }
+    } else {
+      root.classList.remove('sealed');
+      settle(coverOdos, false, 0);
+      document.querySelectorAll('[data-odo]').forEach(function (el) { odoify(el, false, 1); });
+      watchReveals();
+    }
+
+        var watched = false;
+    function watchReveals() {
+      if (watched) return;
+      watched = true;
+      var targets = document.querySelectorAll('.reveal, #cal');
+      if (!('IntersectionObserver' in window) || calm) {
+        targets.forEach(function (el) { el.classList.add('is-in'); });
+        return;
+      }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+        });
+      }, { threshold: .18 });
+      targets.forEach(function (el) { io.observe(el); });
+    }
+
+        var TARGET = Date.UTC(2026, 9, 22, 13, 0, 0);
+    var KEYS = ['d', 'h', 'm', 's'];
+    var cols = {}, unit = {};
+    KEYS.forEach(function (k) {
+      var el = document.getElementById('cd-' + k);
+      el.textContent = '';
+      cols[k] = [makeOdo(0, 1), makeOdo(0, 1)];
+      cols[k].forEach(function (o) { o.classList.add('odo--fast'); el.appendChild(o); });
+      unit[k] = document.getElementById('cu-' + k);
+    });
+    var title = document.getElementById('count-title');
+    var count = document.getElementById('count');
+    var countSr = document.getElementById('count-sr');
+    var timer = null;
+    var firstTick = true;
+    function plural(n, forms) {
+      var a = n % 10, b = n % 100;
+      if (a === 1 && b !== 11) return forms[0];
+      if (a >= 2 && a <= 4 && (b < 12 || b > 14)) return forms[1];
+      return forms[2];
+    }
+    function setCol(k, n) {
+      var s = String(Math.min(99, n));
+      if (s.length < 2) s = '0' + s;
+      cols[k].forEach(function (o, i) {
+        var d = +s[i];
+        if (firstTick || calm) o._strip.classList.add('no-anim');
+        o._strip.style.setProperty('--n', d);
+      });
+    }
+    function tick() {
+      var t = I18N[lang];
+      var left = TARGET - Date.now();
+      if (left <= 0) {
+        if (title) title.textContent = t.countDone;
+        if (count) count.hidden = true;
+        if (countSr) countSr.textContent = t.countDone;
+        if (timer) { window.clearInterval(timer); timer = null; }
+        return;
+      }
+      if (title) title.textContent = t.countTitle;
+      var s = Math.floor(left / 1000);
+      var parts = { d: Math.floor(s / 86400), h: Math.floor(s % 86400 / 3600), m: Math.floor(s % 3600 / 60), s: s % 60 };
+      var words = [];
+      KEYS.forEach(function (k) {
+        setCol(k, parts[k]);
+        var u = plural(parts[k], t.units[k]);
+        if (unit[k]) unit[k].textContent = u;
+        words.push(parts[k] + ' ' + u);
+      });
+      if (countSr) countSr.textContent = t.countTitle + ': ' + words.join(', ');
+      if (firstTick) {
+        firstTick = false;
+        window.requestAnimationFrame(function () {
+          KEYS.forEach(function (k) { cols[k].forEach(function (o) { o._strip.classList.remove('no-anim'); }); });
+        });
+      }
+    }
+    tick();
+    timer = window.setInterval(tick, 1000);
+
+        var initial = 'uz';
+    var hash = (window.location.hash || '').replace('#', '').toLowerCase();
+    if (I18N[hash]) initial = hash;
+    else { try { var saved = localStorage.getItem('lang'); if (I18N[saved]) initial = saved; } catch (e) {} }
+    setLang(initial, false);
+    window.addEventListener('hashchange', function () {
+      var h = (window.location.hash || '').replace('#', '').toLowerCase();
+      if (I18N[h]) setLang(h, true);
+    });
+
+        var c = document.getElementById('glow');
+    if (c && c.getContext) {
+      var ctx = c.getContext('2d');
+      var w = 0, h = 0, dots = [], raf = null, last = 0;
+      function size() {
+        var dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+        w = window.innerWidth; h = window.innerHeight;
+        c.width = Math.round(w * dpr); c.height = Math.round(h * dpr);
+        c.style.width = w + 'px'; c.style.height = h + 'px';
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
+      function seed() {
+        dots = [];
+        var n = Math.max(18, Math.min(46, Math.round(w * h / 16000)));
+        for (var i = 0; i < n; i++) {
+          dots.push({ x: Math.random() * w, y: Math.random() * h, r: 2 + Math.random() * 10, a: .05 + Math.random() * .16,
+                      s: .06 + Math.random() * .16, p: Math.random() * 6.283, k: .3 + Math.random() * .6 });
+        }
+      }
+      function draw(t) {
+        ctx.clearRect(0, 0, w, h);
+        for (var i = 0; i < dots.length; i++) {
+          var d = dots[i];
+          var a = d.a * (.75 + .25 * Math.sin(t / 900 * d.k + d.p));
+          var g = ctx.createRadialGradient(d.x, d.y, 0, d.x, d.y, d.r);
+          g.addColorStop(0, 'rgba(241,211,154,' + a.toFixed(3) + ')');
+          g.addColorStop(.55, 'rgba(241,211,154,' + (a * .35).toFixed(3) + ')');
+          g.addColorStop(1, 'rgba(241,211,154,0)');
+          ctx.fillStyle = g;
+          ctx.beginPath(); ctx.arc(d.x, d.y, d.r, 0, 6.283); ctx.fill();
+          if (!calm) {
+            d.y -= d.s; d.x += Math.sin(t / 1400 * d.k + d.p) * .12;
+            if (d.y < -20) { d.y = h + 20; d.x = Math.random() * w; }
+          }
+        }
+      }
+      function loop(t) {
+        if (t - last > 33) { last = t; draw(t); }
+        raf = window.requestAnimationFrame(loop);
+      }
+      function start() {
+        size(); seed();
+        if (calm) { draw(0); return; }
+        if (raf) window.cancelAnimationFrame(raf);
+        raf = window.requestAnimationFrame(loop);
+      }
+      start();
+      var resizeTimer = null;
+      window.addEventListener('resize', function () {
+        window.clearTimeout(resizeTimer);
+        resizeTimer = window.setTimeout(start, 150);
+      });
+      document.addEventListener('visibilitychange', function () {
+        if (calm) return;
+        if (document.hidden) { if (raf) window.cancelAnimationFrame(raf); raf = null; }
+        else if (!raf) { raf = window.requestAnimationFrame(loop); }
+      });
+    }
+  })();
+</script>
+
+</body>
+</html>
