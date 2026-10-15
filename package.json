@@ -1,0 +1,8 @@
+{
+  "name": "diyorbek-mubinaxon",
+  "private": true,
+  "dependencies": {
+    "@vercel/og": "^0.6.3"
+  },
+  "type": "module"
+}

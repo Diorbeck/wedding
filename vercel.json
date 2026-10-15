@@ -1,0 +1,29 @@
+{
+  "cleanUrls": true,
+  "headers": [
+    {
+      "source": "/(.*)\\.(png|jpg|svg|mp3|woff2)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=604800"
+        }
+      ]
+    },
+    {
+      "source": "/",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/og.jpg",
+      "destination": "/api/og"
+    }
+  ]
+}
